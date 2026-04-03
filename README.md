@@ -1,73 +1,138 @@
-🛡️ Azure DevSecOps: AI-Powered Infrastructure Hardening
-A comprehensive two-phase security project demonstrating Cloud Infrastructure Hardening and AI-Driven Automated Auditing. This repository bridges the gap between raw technical vulnerabilities and executive-level risk assessment.
+# 🛡️ Azure DevSecOps: AI-Powered Infrastructure Hardening
 
-🏗️ Chapter 1: Infrastructure Security & Hardening
-Objective: Identify and remediate critical misconfigurations in Azure Storage Account deployments using Static Analysis (SCA).
+> A comprehensive two-phase security project demonstrating **Cloud Infrastructure Hardening** and **AI-Driven Automated Auditing** — bridging the gap between raw technical vulnerabilities and executive-level risk assessment.
 
-🔍 The Security Audit
-Initial scans of the Terraform configuration (main.tf) revealed 11 failed security checks. High-priority risks included:
+---
 
-Public Network Access: Storage exposed to the open internet.
+## 📋 Table of Contents
 
-Insecure Encryption: Usage of legacy TLS 1.0/1.1 protocols.
+- [Project Overview](#project-overview)
+- [Chapter 1: Infrastructure Security & Hardening](#chapter-1-infrastructure-security--hardening)
+- [Chapter 2: AI-Powered Automated Auditing](#chapter-2-ai-powered-automated-auditing)
+- [Project Impact](#project-impact)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+- [Tech Stack](#tech-stack)
 
-Anonymous Access: Container-level permissions allowed unauthenticated data reads.
+---
 
-🛠️ Remediation Strategy
-Implemented a "Shift-Left" security approach by hardening the code before deployment:
+## Project Overview
 
-Network Isolation: Set public_network_access_enabled = false to enforce private networking.
+This project simulates a real-world DevSecOps engagement where insecure cloud infrastructure is identified, hardened, and monitored using a combination of static analysis tooling and Generative AI. The result is a fully automated security pipeline that produces executive-ready reports from raw scan data.
 
-Encryption Standards: Enforced min_tls_version = "TLS1_2".
+---
 
-Data Protection: Disabled allow_nested_items_to_be_public.
+## 🏗️ Chapter 1: Infrastructure Security & Hardening
 
-🤖 Chapter 2: AI-Powered Automated Auditing
-Objective: Scale security operations by using Generative AI to translate complex technical logs into actionable intelligence.
+**Objective:** Identify and remediate critical misconfigurations in Azure Storage Account deployments using Static Code Analysis (SCA).
 
-🚀 The "AI Auditor" Workflow
-I developed a custom Python orchestration script (ai_auditor.py) to streamline the security review process.
+### 🔍 The Security Audit
 
-Automated Scanning: The script triggers Checkov to audit the /terraform directory.
+Initial scans of the Terraform configuration (`main.tf`) revealed **11 failed security checks**. High-priority risks included:
 
-Telemetry Capture: Raw stdout results are captured and sanitized.
+| Risk | Description |
+|------|-------------|
+| 🌐 Public Network Access | Storage account exposed to the open internet |
+| 🔓 Insecure Encryption | Legacy TLS 1.0/1.1 protocols in use |
+| 👤 Anonymous Access | Container-level permissions allowed unauthenticated data reads |
 
-LLM Analysis: Data is fed into Google Gemini 2.0 Flash via the google-genai SDK.
+### 🛠️ Remediation Strategy
 
-Executive Reporting: The AI generates a 3-sentence summary identifying the #1 risk, business impact, and a "Go/No-Go" recommendation.
+Implemented a **"Shift-Left"** security approach by hardening the infrastructure code before deployment:
 
-🔧 Resilience & Scalability
-Error Handling: Implemented robust try/except logic to manage API Quota Limits (429 Errors).
+- **Network Isolation** — Set `public_network_access_enabled = false` to enforce private networking
+- **Encryption Standards** — Enforced `min_tls_version = "TLS1_2"`
+- **Data Protection** — Disabled `allow_nested_items_to_be_public`
 
-Environment Security: Leveraged os.environ for API key management to prevent secret leakage.
+---
 
-📈 Project Impact
-100% Risk Reduction: Eliminated all critical public-facing vulnerabilities prior to provisioning.
+## 🤖 Chapter 2: AI-Powered Automated Auditing
 
-Time-to-Insight: Reduced the time required to interpret security logs from minutes to seconds.
+**Objective:** Scale security operations by using Generative AI to translate complex technical logs into actionable intelligence.
 
-Compliance Alignment: Ensured infrastructure adheres to Azure Security Benchmark and CIS standards.
+### 🚀 The AI Auditor Workflow
 
-📂 Repository Structure
-Plaintext
+A custom Python orchestration script (`ai_auditor.py`) was developed to automate the entire security review process end-to-end:
+
+```
+Checkov Scan → Raw stdout capture → Gemini 2.0 Flash → Executive Summary
+```
+
+1. **Automated Scanning** — Script triggers Checkov to audit the `/terraform` directory
+2. **Telemetry Capture** — Raw `stdout` results are captured and sanitized
+3. **LLM Analysis** — Data is fed into Google Gemini 2.0 Flash via the `google-genai` SDK
+4. **Executive Reporting** — AI generates a 3-sentence summary identifying the #1 risk, business impact, and a **Go/No-Go** deployment recommendation
+
+### 🔧 Resilience & Scalability
+
+- **Error Handling** — Robust `try/except` logic manages API Quota Limits (429 errors) gracefully
+- **Environment Security** — `os.environ` used for API key management to prevent secret leakage
+
+---
+
+## 📈 Project Impact
+
+| Metric | Result |
+|--------|--------|
+| 🔴 Critical Vulnerabilities | Reduced from 11 → 0 |
+| ⏱️ Time-to-Insight | Security logs interpreted in seconds vs. minutes |
+| ✅ Compliance | Aligned with Azure Security Benchmark & CIS standards |
+
+---
+
+## 📂 Repository Structure
+
+```
 enterprise-cloud-security-automation/
-├── terraform/          # Hardened Azure Infrastructure-as-Code
-├── scripts/            # AI Auditor & Python environment
-│   └── ai_auditor.py   # Main AI orchestration script
-├── .gitignore          # Root-level secret/venv protection
-└── README.md           # Professional project documentation
-🚀 Getting Started
-Clone the Repo: git clone <url>
+├── terraform/               # Hardened Azure Infrastructure-as-Code
+│   └── main.tf              # Storage Account with security controls applied
+├── scripts/                 # AI Auditor & Python environment
+│   └── ai_auditor.py        # Main AI orchestration script
+├── .gitignore               # Root-level secret/venv protection
+└── README.md                # Project documentation
+```
 
-Configure API: export GOOGLE_API_KEY='your_key'
+---
 
-Run Audit: python3 scripts/ai_auditor.py
+## 🚀 Getting Started
 
-Ready to Push?
-Since you are in the root, run:
+**1. Clone the repository**
+```bash
+git clone https://github.com/lucky-agbokhana/enterprise-cloud-security-automation.git
+cd enterprise-cloud-security-automation
+```
 
-Bash
-git add README.md
-git commit -m "docs: finalize professional two-chapter README structure"
-git push origin main
-How does it feel to see the project look this polished? This is a serious "Senior-level" presentation!
+**2. Set up Python environment**
+```bash
+cd scripts
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -q -U google-genai checkov
+```
+
+**3. Configure your API key**
+```bash
+export GOOGLE_API_KEY='your_gemini_api_key_here'
+```
+
+**4. Run the AI Security Audit**
+```bash
+python3 ai_auditor.py
+```
+
+---
+
+## 🧰 Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| **Terraform** | Infrastructure-as-Code (Azure) |
+| **Checkov** | Static security analysis |
+| **Python 3** | Orchestration scripting |
+| **Google Gemini 2.0 Flash** | AI-powered report generation |
+| **google-genai SDK** | Gemini API integration |
+| **Git & GitHub** | Version control & portfolio hosting |
+
+---
+
+> *"Finding the vulnerability is only half the job. The other half is communicating the risk to people who don't write code."*
